@@ -1,0 +1,100 @@
+VLAN
+sw(0)
+en
+show vlan brief
+conf t
+vlan 10
+name IT
+vlan 20
+name HR
+end
+show vlan brief
+conf t
+int range fa0/1-2
+switchport access vlan 10
+int range fa0/3-4
+switchport access vlan 20
+end
+show vlan brief
+show interface switchport
+conf t
+int range fa0/1-4
+switchport mode access
+end
+show interface switchport
+
+switch trunking
+conf t
+int fa0/5
+switchport mode trunk
+show int trunk
+
+SW(1)
+
+en
+show vlan brief
+conf t
+vlan 10
+name IT
+vlan 20
+name HR
+end
+show vlan brief
+conf t
+int range fa0/5-6
+switchport access vlan 10
+int range fa0/7-8
+switchport access vlan 20
+end
+show vlan brief
+show interface switchport
+conf t
+int range fa0/5-8
+switchport mode access
+end
+show interface switchport
+
+switch trunking
+conf t
+int fa0/5
+switchport mode trunk
+show int trunk
+
+router trunking
+conf t
+int fa0/6
+switchport mode trunk
+end
+show int trunk
+
+router on
+
+en
+conf t
+int gig0/0
+no shutdown
+exit
+
+conf t
+int gig0/0.1
+encapsulation dot1q 10
+ip add 192.168.10.5 255.255.255.0
+exit
+int gig0/0.2
+encapsulation dot1q 20
+ip add 192.168.20.5 255.255.255.0
+end
+show ip int brief
+
+putting getway
+192.168.10.5 & 192.168.20.5
+
+
+
+
+
+
+
+
+
+
